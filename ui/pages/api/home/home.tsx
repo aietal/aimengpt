@@ -360,8 +360,8 @@ const Home = ({
       }}
     >
       <Head>
-        <title>LlamaGPT</title>
-        <meta name="description" content="Chat with a local LLM on your Umbrel without leaking your data to OpenAI" />
+        <title>IsaacGPT</title>
+        <meta name="description" content="Chat with a local LLM on your server without leaking your data to OpenAI" />
         <meta
           name="viewport"
           content="height=device-height ,width=device-width, initial-scale=1, user-scalable=no"

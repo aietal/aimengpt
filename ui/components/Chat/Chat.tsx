@@ -124,6 +124,22 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           signal: controller.signal,
           body,
         });
+        const documents = await fetch('/api/fetch-documents', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          signal: controller.signal,
+          body: JSON.stringify({
+            query: updatedConversation.prompt,
+          }),
+        });
+        if (documents) {
+          console.log(documents)
+        }
+
+
+
         if (!response.ok) {
           homeDispatch({ field: 'loading', value: false });
           homeDispatch({ field: 'messageIsStreaming', value: false });

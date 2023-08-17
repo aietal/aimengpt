@@ -9,9 +9,21 @@ import wasm from '../../node_modules/@dqbd/tiktoken/lite/tiktoken_bg.wasm?module
 import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import { Tiktoken, init } from '@dqbd/tiktoken/lite/init';
 
+
+import axios from 'axios';
+
 export const config = {
   runtime: 'edge',
 };
+
+async function fetchDocuments(query: string) {
+  try {
+    const response = await axios.post('http://localhost:3047/api/fetch-documents', { query });
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to fetch documents');
+  }
+}
 
 const handler = async (req: Request): Promise<Response> => {
   try {
@@ -28,6 +40,8 @@ const handler = async (req: Request): Promise<Response> => {
     if (!promptToSend) {
       promptToSend = DEFAULT_SYSTEM_PROMPT;
     }
+
+    const documents = await fetchDocuments(promptToSend);
 
     let temperatureToUse = temperature;
     if (temperatureToUse == null) {
