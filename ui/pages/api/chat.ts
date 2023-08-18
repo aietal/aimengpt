@@ -41,7 +41,7 @@ const handler = async (req: Request): Promise<Response> => {
       promptToSend = DEFAULT_SYSTEM_PROMPT;
     }
 
-    const documents = await fetchDocuments(promptToSend);
+    // const documents = await fetchDocuments(promptToSend);
 
     let temperatureToUse = temperature;
     if (temperatureToUse == null) {

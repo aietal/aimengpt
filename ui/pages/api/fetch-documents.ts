@@ -18,7 +18,7 @@ export default async function handler(
 
   const results = await collection.query({
     nResults: 2, 
-    queryTexts: [query],
+    queryTexts: ["Hi"],
   }) 
 
   res.status(200).json(results);
