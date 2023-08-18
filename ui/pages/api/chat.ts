@@ -18,7 +18,7 @@ export const config = {
 
 async function fetchDocuments(query: string) {
   try {
-    const response = await axios.post('http://localhost:3047/api/fetch-documents', { query });
+    const response = await axios.post('http://localhost:3000/api/fetch-documents', { query });
     return response.data;
   } catch (error) {
     throw new Error('Failed to fetch documents');
