@@ -1,8 +1,21 @@
-version: '3.6'
+version: '3.9'
 
 services:
+  chroma-server:
+      image: server
+      build:
+        context: ../chroma
+        dockerfile: Dockerfile
+      volumes:
+        - ../chroma:/chroma
+        - index_data:/index_data
+      command: uvicorn chromadb.app:app --reload --workers 1 --host 0.0.0.0 --port 8000 --log-config log_config.yml
+      environment:
+        - IS_PERSISTENT=TRUE
+      ports:
+        - 8000:8000
+
   llama-gpt-api-70b:
-    # image: 'ghcr.io/getumbrel/llama-gpt-api-llama-2-70b-chat:latest'
     build:
       context: ./api
       dockerfile: 70B.Dockerfile
@@ -20,13 +33,23 @@ services:
       - IPC_LOCK
 
   llama-gpt-ui:
-    image: 'ghcr.io/getumbrel/llama-gpt-ui:latest'
+    build:
+      context: ./ui 
+      dockerfile: Dockerfile 
     ports:
       - 3000:3000
     restart: on-failure
     environment:
       - 'OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXX'
-      - 'OPENAI_API_HOST=http://llama-gpt-api-70b:8000'
-      - 'DEFAULT_MODEL=/models/llama-2-70b-chat.bin'
-      - 'WAIT_HOSTS=llama-gpt-api-70b:8000'
+      - 'OPENAI_API_HOST=http://llama-gpt-api-7b:8000'
+      - 'DEFAULT_MODEL=/models/llama-2-7b-chat.bin'
+      - 'WAIT_HOSTS=llama-gpt-api-7b:8000'
       - 'WAIT_TIMEOUT=600'
+    networks:
+      - net
+
+volumes:
+  index_data:
+    driver: local
+  backups:
+    driver: local
