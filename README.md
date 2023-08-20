@@ -8,21 +8,7 @@
   <p align="center">
     A self-hosted, offline, ChatGPT-like chatbot to chat with your data, powered by Llama 2 and chromadb. 100% private, with no data leaving your device.
     <br />
-    <!-- <a href="https://umbrel.com"><strong>umbrel.com »</strong></a>
-    <br />
-    <br />
-    <a href="https://twitter.com/umbrel">
-      <img src="https://img.shields.io/twitter/follow/umbrel?style=social" />
-    </a>
-    <a href="https://t.me/getumbrel">
-      <img src="https://img.shields.io/badge/community-chat-%235351FB">
-    </a>
-    <a href="https://reddit.com/r/getumbrel">
-      <img src="https://img.shields.io/reddit/subreddit-subscribers/getumbrel?style=social">
-    </a>
-    <a href="https://community.umbrel.com">
-      <img src="https://img.shields.io/badge/community-forum-%235351FB">
-    </a> -->
+   
   </p>
 </p>
 
