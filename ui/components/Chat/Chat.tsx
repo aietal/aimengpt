@@ -380,12 +380,12 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           </div>
          
           <div className="text-center text-lg text-black dark:text-white">
-            <div className="mb-8">IsaacGPT is a 100% private alternative to ChatGPT.</div>
+            <div className="mb-4">IsaacGPT is a 100% private alternative to ChatGPT + RAG.</div>
           </div>
           <div className="text-center text-gray-500 dark:text-gray-400">
-            {/* <div className="mb-2">
-              LlamaGPT allows you to self-host your own LLM.
-            </div> */}
+            <div className="mb-2">
+              IsaacGPT is powered by Llama-2, Chroma and langchain.
+            </div>
           </div>
         </div>
       ) : modelError ? (
