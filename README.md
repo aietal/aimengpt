@@ -6,9 +6,9 @@
 <p align="center">
   <h1 align="center">LlamaGPT</h1>
   <p align="center">
-    A self-hosted, offline, ChatGPT-like chatbot, powered by Llama 2. 100% private, with no data leaving your device.
+    A self-hosted, offline, ChatGPT-like chatbot to chat with your data, powered by Llama 2 and chromadb. 100% private, with no data leaving your device.
     <br />
-    <a href="https://umbrel.com"><strong>umbrel.com »</strong></a>
+    <!-- <a href="https://umbrel.com"><strong>umbrel.com »</strong></a>
     <br />
     <br />
     <a href="https://twitter.com/umbrel">
@@ -22,7 +22,7 @@
     </a>
     <a href="https://community.umbrel.com">
       <img src="https://img.shields.io/badge/community-forum-%235351FB">
-    </a>
+    </a> -->
   </p>
 </p>
 
@@ -32,26 +32,24 @@ https://github.com/getumbrel/llama-gpt/assets/10330103/5d1a76b8-ed03-4a51-90bd-1
 
 ## How to install
 
-### Install LlamaGPT on your umbrelOS home server
+### Install IsaacGPT on your server or local machine
 
-Running LlamaGPT on an [umbrelOS](https://umbrel.com) home server is one click. Simply install it from the [Umbrel App Store](https://apps.umbrel.com/app/llama-gpt).
+You can run IsaacGPT on any x86 or arm64 system. Make sure you have Docker installed.
 
-<!-- Todo: update badge link after launch  -->
-
-[![LlamaGPT on Umbrel App Store](https://apps.umbrel.com/app/llama-gpt/badge-light.svg)](https://apps.umbrel.com/app/llama-gpt)
-
-### Install LlamaGPT anywhere else
-
-You can run LlamaGPT on any x86 or arm64 system. Make sure you have Docker installed.
-
-Then, clone this repo and `cd` into it:
+First, clone the Chroma repo:
 
 ```
-git clone https://github.com/getumbrel/llama-gpt.git
-cd llama-gpt
+git clone https://github.com/chroma-core/chroma.git
 ```
 
-You can now run LlamaGPT with any of the following models depending upon your hardware:
+Then, clone the IsaacGPT repo and `cd` into it:
+
+```
+git clone https://github.com/aietal/isaac-gpt.git
+cd isaac-gpt
+```
+
+You can now run IsaacGPT with any of the following models depending upon your hardware:
 
 | Model size | Model used                          | Minimum RAM required | How to start LlamaGPT                            |
 | ---------- | ----------------------------------- | -------------------- | ------------------------------------------------ |
@@ -118,4 +116,3 @@ A massive thank you to the following developers and teams for making LlamaGPT po
 
 [![License](https://img.shields.io/github/license/getumbrel/llama-gpt?color=%235351FB)](https://github.com/getumbrel/llama-gpt/blob/master/LICENSE.md)
 
-[umbrel.com](https://umbrel.com)
