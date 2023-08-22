@@ -1,9 +1,7 @@
 # ---- Base Node ----
-FROM node:19-alpine AS base
+FROM node:19 AS base
 WORKDIR /app
 COPY package*.json ./
-RUN apk add --no-cache libc6-compat
-RUN ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
 
 # ---- Dependencies ----
 FROM base AS dependencies
@@ -15,10 +13,8 @@ COPY . .
 RUN npm run build
 
 # ---- Production ----
-FROM node:19-alpine AS production
+FROM node:19 AS production
 WORKDIR /app
-RUN apk add --no-cache libc6-compat
-RUN ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
