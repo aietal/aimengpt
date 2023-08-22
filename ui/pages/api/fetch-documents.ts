@@ -27,6 +27,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else {
       console.error('Unknown error:', error);
     }
-    res.status(500).json({ error: 'An unexpected error occurred' });
+    res.status(500).json({ error: 'An unexpected error occurred :(' });
   }
 }
