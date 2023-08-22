@@ -5,7 +5,7 @@ import { ChromaClient, TransformersEmbeddingFunction } from "chromadb";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = new ChromaClient({
-      path: "http://localhost:8000",
+      path: "http://llama-gpt-chroma-server-1:8000",
     });
 
     const query = "Hello World"; 
