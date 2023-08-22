@@ -2,7 +2,8 @@
 FROM node:19-alpine AS base
 WORKDIR /app
 COPY package*.json ./
-RUN apk --no-cache add libc6-compat
+RUN apk add --no-cache libc6-compat
+RUN ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
 
 # ---- Dependencies ----
 FROM base AS dependencies
