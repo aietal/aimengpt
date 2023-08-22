@@ -132,7 +132,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           },
           // signal: controller.signal,
           body: JSON.stringify({
-            query: updatedConversation.prompt,
+            input: "Hello, world!",
           }),
         });
         if (documents.ok) {

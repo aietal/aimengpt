@@ -8,7 +8,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       path: "http://localhost:8000",
     });
 
-    const query = req.body.query;
+    const query = req.body.input;
+
     const embedder = new TransformersEmbeddingFunction();
 
     const collection = await client.getCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
