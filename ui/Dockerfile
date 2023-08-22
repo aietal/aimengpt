@@ -2,6 +2,7 @@
 FROM node:19-alpine AS base
 WORKDIR /app
 COPY package*.json ./
+RUN apk --no-cache add libc6-compat
 
 # ---- Dependencies ----
 FROM base AS dependencies
