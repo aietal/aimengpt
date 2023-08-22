@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const embedder = new TransformersEmbeddingFunction();
 
-    const collection = await client.getCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
+    const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
 
     const results = await collection.query({
       nResults: 2,
