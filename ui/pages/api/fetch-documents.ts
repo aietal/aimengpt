@@ -21,7 +21,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     res.status(200).json(results);
   } catch (error) {
-    console.error(error);
+    if (error instanceof Error) {
+      console.error('Error message:', error.message);
+      console.error('Stack trace:', error.stack);
+    } else {
+      console.error('Unknown error:', error);
+    }
     res.status(500).json({ error: 'An unexpected error occurred' });
   }
 }
