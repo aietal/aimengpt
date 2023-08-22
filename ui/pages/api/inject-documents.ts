@@ -23,15 +23,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ error: 'Failed to upload file' });
       }
 
-      console.log(files);
-
-      console.log(fields);
-
       const client = new ChromaClient({
         path: process.env.CHROMA_PATH || "http://localhost:8000",
       });
-
-
 
       // Assuming the uploaded PDF is in files.pdf.path
       const loader = new PDFLoader(files.pdf[0].filepath);
