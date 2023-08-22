@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       path: "http://localhost:8000",
     });
 
-    const query = req.body.input;
+    const query = "Hello World"; 
 
     const embedder = new TransformersEmbeddingFunction();
 
