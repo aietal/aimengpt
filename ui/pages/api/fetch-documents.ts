@@ -14,10 +14,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
 
-    const results = await collection.query({
-      nResults: 2,
-      queryTexts: [ "Hello World"],
-    });
+    // add documents to the collection
+    await collection.add({
+      ids: ["id1", "id2", "id3"],
+      metadatas: [{"chapter": "3", "verse": "16"}, {"chapter": "3", "verse": "5"}, {"chapter": "29", "verse": "11"}], 
+      documents: ["lorem ipsum...", "doc2", "doc3"], 
+  })
+
+  // query the collection
+  const results = await collection.query({
+      nResults: 2, 
+      queryTexts: ["lorem ipsum"]
+  }) 
 
     res.status(200).json(results);
   } catch (error) {
