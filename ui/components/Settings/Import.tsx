@@ -8,6 +8,8 @@ import { SupportedExportFormats } from '@/types/export';
 import { SidebarButton } from '../Sidebar/SidebarButton';
 import axios from 'axios';
 
+import { toast } from 'react-hot-toast';
+
 interface Props {
   onImport: (data: SupportedExportFormats) => void;
 }
@@ -36,7 +38,7 @@ export const Import: FC<Props> = ({ onImport }) => {
       },
     })
     .then(response => {
-      console.log('File uploaded successfully:', response.data);
+      toast.success('File uploaded successfully!');
     })
     .catch(error => {
       console.error('Error uploading file:', error);
@@ -47,7 +49,7 @@ export const Import: FC<Props> = ({ onImport }) => {
       />
 
       <SidebarButton
-        text={t('Import data')}
+        text={t('Upload file')}
         icon={<IconFileImport size={18} />}
         onClick={() => {
           const importFile = document.querySelector('#import-file') as HTMLInputElement;
