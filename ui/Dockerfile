@@ -17,6 +17,8 @@ RUN npm run build
 # ---- Production ----
 FROM node:19-alpine AS production
 WORKDIR /app
+RUN apk add --no-cache libc6-compat
+RUN ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY --from=build /app/.next ./.next
 COPY --from=build /app/public ./public
@@ -32,4 +34,3 @@ EXPOSE 3000
 
 # Start the application after the API is ready
 CMD /wait && npm start
-
