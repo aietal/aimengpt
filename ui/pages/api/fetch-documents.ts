@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const results = await collection.query({
       nResults: 2,
-      queryTexts: [query],
+      queryTexts: [ "Hello World"],
     });
 
     res.status(200).json(results);
