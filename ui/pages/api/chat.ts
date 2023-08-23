@@ -15,6 +15,16 @@ export const config = {
   runtime: 'edge',
 };
 
+// create type interface 
+interface DocumentInfo {
+  id: string;
+  text: string;
+  metadata: {
+    title: string;
+    page: string;
+  };
+}
+
 async function fetchDocuments(query: string) {
   try {
     const response = await axios.post(
@@ -54,7 +64,7 @@ const handler = async (req: Request): Promise<Response> => {
       id: documents.data.ids[0][index],
       text: doc,
       metadata: documents.data.metadatas[0][index],
-    })).map(doc => `Chapter ${doc.metadata.chapter}, Verse ${doc.metadata.verse}: ${doc.text}`).join(', ');
+    })).map((doc: DocumentInfo) => `Title ${doc.metadata.title}, Page ${doc.metadata.page}: ${doc.text}`).join(', ');
     
     let temperatureToUse = temperature;
     if (temperatureToUse == null) {
