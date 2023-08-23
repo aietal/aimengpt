@@ -1,6 +1,7 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
 import { ConversationalRetrievalQAChain } from "langchain/chains";
+import { fetchDocumentsLogic } from '@/utils/server/chromaRetrieval';
 
 import { ChatBody, Message } from '@/types/chat';
 
@@ -27,16 +28,12 @@ interface DocumentInfo {
 
 async function fetchDocuments(input: string) {
   try {
-    const response = await axios.post(
-      'http://localhost:3000/api/fetch-documents',
-      { input },
-    );
+    const response = await fetchDocumentsLogic(input);
     return response;
   } catch (error) {
     throw new Error('Failed to fetch documents');
   }
 }
-
 const handler = async (req: Request): Promise<Response> => {
   try {
     const { model, messages, key, prompt, temperature } =
