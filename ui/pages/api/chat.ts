@@ -25,19 +25,17 @@ interface DocumentInfo {
   };
 }
 
-async function fetchDocuments(query: string) {
+async function fetchDocuments(input: string) {
   try {
     const response = await axios.post(
       'http://localhost:3000/api/fetch-documents',
-      { query },
+      { input },
     );
     return response;
   } catch (error) {
     throw new Error('Failed to fetch documents');
   }
 }
-
-
 
 const handler = async (req: Request): Promise<Response> => {
   try {
