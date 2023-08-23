@@ -125,25 +125,25 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           signal: controller.signal,
           body,
         });
-        const documents = await fetch('api/fetch-documents', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          // signal: controller.signal,
-          body: JSON.stringify({
-            input: "Hello, world!",
-          }),
-        });
-        if (documents.ok) {
-          const alio = await documents.json();
-          console.log(alio);
-        }
+        // const documents = await fetch('api/fetch-documents', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   // signal: controller.signal,
+        //   body: JSON.stringify({
+        //     input: "Hello, world!",
+        //   }),
+        // });
+        // if (documents.ok) {
+        //   const alio = await documents.json();
+        //   console.log(alio);
+        // }
 
-        if (!documents.ok) {
-          const errorText = await documents.text();
-          console.error('Server Error:', errorText);
-        }
+        // if (!documents.ok) {
+        //   const errorText = await documents.text();
+        //   console.error('Server Error:', errorText);
+        // }
 
 
 
