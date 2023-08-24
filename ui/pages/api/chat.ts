@@ -1,6 +1,6 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
-import { ChromaClient, TransformersEmbeddingFunction } from "chromadb";
+import axios from 'axios';
 
 import { ChatBody, Message } from '@/types/chat';
 
@@ -9,30 +9,30 @@ import wasm from '../../node_modules/@dqbd/tiktoken/lite/tiktoken_bg.wasm?module
 
 import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import { Tiktoken, init } from '@dqbd/tiktoken/lite/init';
-import { NextApiRequest } from 'next';
-import { IncomingMessage } from 'http';
 
 export const config = {
   runtime: 'edge',
-  unstable_allowDynamic: [
-    '/node_modules/chromadb/**', // allows anything in the chromadb module
-  ],
 };
 
-// @ts-ignore
+
+
 async function fetchDocuments(input: string) {
-  const client = new ChromaClient({ path: "http://chroma-server:8000" });
-  const embedder = new TransformersEmbeddingFunction();
-  const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
-  const results = await collection.query({ nResults: 2, queryTexts: [input] });
-  return results;
+  try {
+    console.log('Fetching documents...');
+    const response = await axios.post('http://localhost:3000/api/fetch-documents', { input }, { headers: { 'Content-Type': 'application/json' } });
+    console.log('Documents fetched successfully');
+    return response;
+  } catch (error) {
+    console.error('Error fetching documents:', error);
+    throw error;
+  }
 }
 
 function formatData(data: any) {
   let result = '';
-  data.metadatas[0].forEach((metadata: any, index: number) => {
+  data.data.metadatas[0].forEach((metadata: any, index: number) => {
     result += `Source ${index + 1}) ${metadata.title}, ${metadata.page}: ${
-      data.documents[0][index]
+      data.data.documents[0][index]
     }\n`;
   });
   return result;
@@ -56,8 +56,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const lastMessage = messages[messages.length - 1];
- 
-    // @ts-ignore
+
     const documents = await fetchDocuments(lastMessage.content);
 
     const relevantDocuments = formatData(documents);
@@ -120,7 +119,6 @@ const handler = async (req: Request): Promise<Response> => {
 
 export default handler;
 
-
 // create type interface
 // interface DocumentInfo {
 //   id: string;
@@ -129,13 +127,4 @@ export default handler;
 //     title: string;
 //     page: string;
 //   };
-// }
-
-// async function fetchDocuments(input: string) {
-//   try {
-//     const response = await fetchDocumentsLogic(input);
-//     return response;
-//   } catch (error) {
-//     throw new Error('Failed to fetch documents');
-//   }
 // }
