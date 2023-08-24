@@ -46,6 +46,7 @@ async function fetchDocuments(input: string) {
     });
     const data = await response.json();
     console.log('Documents fetched successfully');
+    console.log("data",data)
     return data;
   } catch (error) {
     console.error('Error fetching documents:', error);
