@@ -2,6 +2,7 @@ import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
 import axios from 'axios';
 
+
 import { ChatBody, Message } from '@/types/chat';
 
 // @ts-expect-error
@@ -14,12 +15,19 @@ export const config = {
   runtime: 'edge',
 };
 
+const instance = axios.create({
+  baseURL: 'http://localhost:3000',
+  headers: {'Content-Type': 'application/json'},
+  adapter: require('axios/lib/adapters/http'),
+})
+
+
 
 
 async function fetchDocuments(input: string) {
   try {
     console.log('Fetching documents...');
-    const response = await axios.post('http://localhost:3000/api/fetch-documents', { input }, { headers: { 'Content-Type': 'application/json' } });
+    const response = await instance.post('http://localhost:3000/api/fetch-documents', { input }, { headers: { 'Content-Type': 'application/json' } });
     console.log('Documents fetched successfully');
     return response;
   } catch (error) {
