@@ -1,6 +1,6 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
-import { ChromaClient, TransformersEmbeddingFunction } from "chromadb";
+// import { ChromaClient, TransformersEmbeddingFunction } from "chromadb";
 
 import { ChatBody, Message } from '@/types/chat';
 
@@ -14,24 +14,29 @@ export const config = {
   runtime: 'edge',
 };
 
-// create type interface
-// interface DocumentInfo {
-//   id: string;
-//   text: string;
-//   metadata: {
-//     title: string;
-//     page: string;
-//   };
-// }
 
 // async function fetchDocuments(input: string) {
-//   try {
-//     const response = await fetchDocumentsLogic(input);
-//     return response;
-//   } catch (error) {
-//     throw new Error('Failed to fetch documents');
-//   }
+//   const client = new ChromaClient({ path: "http://chroma-server:8000" });
+//   const embedder = new TransformersEmbeddingFunction();
+//   const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
+//   const results = await collection.query({ nResults: 2, queryTexts: [input] });
+//   return results;
 // }
+
+async function fetchDocuments(input:string) {
+  try {
+    const response = await fetch('/api/fetchDocuments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ input }),
+    });
+    const results = await response.json();
+    return results;
+  } catch (error) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
 
 
 function formatData(data: any) {
@@ -62,16 +67,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const lastMessage = messages[messages.length - 1];
-
-    // @ts-ignore
-    async function fetchDocuments(input: string) {
-      const client = new ChromaClient({ path: "http://chroma-server:8000" });
-      const embedder = new TransformersEmbeddingFunction();
-      const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
-      const results = await collection.query({ nResults: 2, queryTexts: [input] });
-      return results;
-    }
-    
+ 
     const documents = await fetchDocuments(lastMessage.content);
 
     const relevantDocuments = formatData(documents);
@@ -133,3 +129,23 @@ const handler = async (req: Request): Promise<Response> => {
 };
 
 export default handler;
+
+
+// create type interface
+// interface DocumentInfo {
+//   id: string;
+//   text: string;
+//   metadata: {
+//     title: string;
+//     page: string;
+//   };
+// }
+
+// async function fetchDocuments(input: string) {
+//   try {
+//     const response = await fetchDocumentsLogic(input);
+//     return response;
+//   } catch (error) {
+//     throw new Error('Failed to fetch documents');
+//   }
+// }
