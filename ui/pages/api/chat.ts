@@ -1,6 +1,7 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
 import axios from 'axios';
+import fetch from 'node-fetch';
 
 
 import { ChatBody, Message } from '@/types/chat';
@@ -15,21 +16,38 @@ export const config = {
   runtime: 'edge',
 };
 
-const instance = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: {'Content-Type': 'application/json'},
-  adapter: require('axios/lib/adapters/http'),
-})
+// const instance = axios.create({
+//   baseURL: 'http://localhost:3000',
+//   headers: {'Content-Type': 'application/json'},
+//   adapter: require('axios/lib/adapters/http'),
+// })
 
 
 
+
+// async function fetchDocuments(input: string) {
+//   try {
+//     console.log('Fetching documents...');
+//     const response = await instance.post('http://localhost:3000/api/fetch-documents', { input }, { headers: { 'Content-Type': 'application/json' } });
+//     console.log('Documents fetched successfully');
+//     return response;
+//   } catch (error) {
+//     console.error('Error fetching documents:', error);
+//     throw error;
+//   }
+// }
 
 async function fetchDocuments(input: string) {
   try {
     console.log('Fetching documents...');
-    const response = await instance.post('http://localhost:3000/api/fetch-documents', { input }, { headers: { 'Content-Type': 'application/json' } });
+    const response = await fetch('http://localhost:3000/api/fetch-documents', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ input }),
+    });
+    const data = await response.json();
     console.log('Documents fetched successfully');
-    return response;
+    return data;
   } catch (error) {
     console.error('Error fetching documents:', error);
     throw error;
