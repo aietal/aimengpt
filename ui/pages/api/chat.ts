@@ -2,6 +2,7 @@ import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
 
 import { ChatBody, Message } from '@/types/chat';
+import axios from 'axios';
 
 // @ts-expect-error
 import wasm from '../../node_modules/@dqbd/tiktoken/lite/tiktoken_bg.wasm?module';
@@ -10,9 +11,9 @@ import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import { Tiktoken, init } from '@dqbd/tiktoken/lite/init';
 import { ChromaClient, TransformersEmbeddingFunction } from 'chromadb';
 
-// export const config = {
-//   runtime: 'edge',
-// };
+export const config = {
+  runtime: 'edge',
+};
 
 // create type interface
 // interface DocumentInfo {
@@ -33,11 +34,24 @@ import { ChromaClient, TransformersEmbeddingFunction } from 'chromadb';
 //   }
 // }
 
+
+async function fetchDocuments(input: string) {
+  try {
+    const response = await axios.post(
+      'http://localhost:3000/api/fetch-documents',
+      { input },
+    );
+    return response;
+  } catch (error) {
+    throw new Error('Failed to fetch documents');
+  }
+}
+
 function formatData(data: any) {
   let result = '';
-  data.metadatas[0].forEach((metadata: any, index: number) => {
+  data.data.metadatas[0].forEach((metadata: any, index: number) => {
     result += `Source ${index + 1}) ${metadata.title}, ${metadata.page}: ${
-      data.documents[0][index]
+      data.data.documents[0][index]
     }\n`;
   });
   return result;
@@ -62,19 +76,19 @@ const handler = async (req: Request): Promise<Response> => {
 
     const lastMessage = messages[messages.length - 1];
 
-    async function fetchDocuments(input: string) {
-      const client = new ChromaClient({ path: 'http://chroma-server:8000' });
-      const embedder = new TransformersEmbeddingFunction();
-      const collection = await client.getOrCreateCollection({
-        name: 'hypzert-dokumentation',
-        embeddingFunction: embedder,
-      });
-      const results = await collection.query({
-        nResults: 2,
-        queryTexts: [input],
-      });
-      return results;
-    }
+    // async function fetchDocuments(input: string) {
+    //   const client = new ChromaClient({ path: 'http://chroma-server:8000' });
+    //   const embedder = new TransformersEmbeddingFunction();
+    //   const collection = await client.getOrCreateCollection({
+    //     name: 'hypzert-dokumentation',
+    //     embeddingFunction: embedder,
+    //   });
+    //   const results = await collection.query({
+    //     nResults: 2,
+    //     queryTexts: [input],
+    //   });
+    //   return results;
+    // }
 
     const documents = await fetchDocuments(lastMessage.content);
 
