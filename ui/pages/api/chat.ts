@@ -1,6 +1,6 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
-import { fetchDocumentsLogic } from '@/utils/server/chromaRetrieval';
+import { fetchDocumentsLogic } from '@/utils/chromaRetrieval';
 
 import { ChatBody, Message } from '@/types/chat';
 
@@ -9,8 +9,6 @@ import wasm from '../../node_modules/@dqbd/tiktoken/lite/tiktoken_bg.wasm?module
 
 import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import { Tiktoken, init } from '@dqbd/tiktoken/lite/init';
-import axios from 'axios';
-import { ConversationalRetrievalQAChain } from 'langchain/chains';
 
 export const config = {
   runtime: 'edge',
