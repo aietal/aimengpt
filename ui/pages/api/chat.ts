@@ -1,6 +1,5 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
-import { ChromaClient, TransformersEmbeddingFunction } from "chromadb";
 
 import { ChatBody, Message } from '@/types/chat';
 
@@ -9,6 +8,7 @@ import wasm from '../../node_modules/@dqbd/tiktoken/lite/tiktoken_bg.wasm?module
 
 import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import { Tiktoken, init } from '@dqbd/tiktoken/lite/init';
+import { ChromaClient, TransformersEmbeddingFunction } from 'chromadb';
 
 export const config = {
   runtime: 'edge',
@@ -32,24 +32,6 @@ export const config = {
 //     throw new Error('Failed to fetch documents');
 //   }
 // }
-
-async function fetchDocuments(input: string) {
-  const client = new ChromaClient({
-    path: "http://chroma-server:8000",
-  });
-
-  const query = input;
-  const embedder = new TransformersEmbeddingFunction();
-
-  const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
-
-  const results = await collection.query({
-    nResults: 2,
-    queryTexts: [query]
-  });
-
-  return results;
-}
 
 function formatData(data: any) {
   let result = '';
@@ -80,9 +62,23 @@ const handler = async (req: Request): Promise<Response> => {
 
     const lastMessage = messages[messages.length - 1];
 
-    const relevantDocuments = {"nice": "Hello my friend"}
+    async function fetchDocuments(input: string) {
+      const client = new ChromaClient({ path: 'http://chroma-server:8000' });
+      const embedder = new TransformersEmbeddingFunction();
+      const collection = await client.getOrCreateCollection({
+        name: 'hypzert-dokumentation',
+        embeddingFunction: embedder,
+      });
+      const results = await collection.query({
+        nResults: 2,
+        queryTexts: [input],
+      });
+      return results;
+    }
 
-    // const relevantDocuments = formatData(documents);
+    const documents = await fetchDocuments(lastMessage.content);
+
+    const relevantDocuments = formatData(documents);
 
     let temperatureToUse = temperature;
     if (temperatureToUse == null) {
