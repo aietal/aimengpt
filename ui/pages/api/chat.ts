@@ -14,6 +14,9 @@ import { IncomingMessage } from 'http';
 
 export const config = {
   runtime: 'edge',
+  unstable_allowDynamic: [
+    '/node_modules/chromadb/**', // allows anything in the chromadb module
+  ],
 };
 
 // @ts-ignore
