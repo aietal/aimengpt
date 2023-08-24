@@ -33,23 +33,23 @@ export const config = {
 //   }
 // }
 
-// async function fetchDocuments(input: string) {
-//   const client = new ChromaClient({
-//     path: "http://chroma-server:8000",
-//   });
+async function fetchDocuments(input: string) {
+  const client = new ChromaClient({
+    path: "http://chroma-server:8000",
+  });
 
-//   const query = input;
-//   const embedder = new TransformersEmbeddingFunction();
+  const query = input;
+  const embedder = new TransformersEmbeddingFunction();
 
-//   const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
+  const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
 
-//   const results = await collection.query({
-//     nResults: 2,
-//     queryTexts: [query]
-//   });
+  const results = await collection.query({
+    nResults: 2,
+    queryTexts: [query]
+  });
 
-//   return results;
-// }
+  return results;
+}
 
 function formatData(data: any) {
   let result = '';
