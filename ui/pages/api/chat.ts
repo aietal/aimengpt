@@ -1,6 +1,6 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
-import { fetchDocumentsLogic } from '@/utils/chromaRetrieval';
+import { ChromaClient, TransformersEmbeddingFunction } from "chromadb";
 
 import { ChatBody, Message } from '@/types/chat';
 
@@ -24,13 +24,31 @@ interface DocumentInfo {
   };
 }
 
+// async function fetchDocuments(input: string) {
+//   try {
+//     const response = await fetchDocumentsLogic(input);
+//     return response;
+//   } catch (error) {
+//     throw new Error('Failed to fetch documents');
+//   }
+// }
+
 async function fetchDocuments(input: string) {
-  try {
-    const response = await fetchDocumentsLogic(input);
-    return response;
-  } catch (error) {
-    throw new Error('Failed to fetch documents');
-  }
+  const client = new ChromaClient({
+    path: "http://chroma-server:8000",
+  });
+
+  const query = input;
+  const embedder = new TransformersEmbeddingFunction();
+
+  const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
+
+  const results = await collection.query({
+    nResults: 2,
+    queryTexts: [query]
+  });
+
+  return results;
 }
 
 function formatData(data: any) {
