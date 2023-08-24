@@ -56,9 +56,9 @@ async function fetchDocuments(input: string) {
 
 function formatData(data: any) {
   let result = '';
-  data.data.metadatas[0].forEach((metadata: any, index: number) => {
+  data.metadatas[0].forEach((metadata: any, index: number) => {
     result += `Source ${index + 1}) ${metadata.title}, ${metadata.page}: ${
-      data.data.documents[0][index]
+      data.documents[0][index]
     }\n`;
   });
   return result;
