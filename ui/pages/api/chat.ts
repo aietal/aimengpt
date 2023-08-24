@@ -1,7 +1,6 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
-import axios from 'axios';
-import fetch from 'node-fetch';
+// import axios from 'axios';
 
 
 import { ChatBody, Message } from '@/types/chat';
