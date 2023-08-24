@@ -10,9 +10,9 @@ import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import { Tiktoken, init } from '@dqbd/tiktoken/lite/init';
 import { ChromaClient, TransformersEmbeddingFunction } from 'chromadb';
 
-export const config = {
-  runtime: 'edge',
-};
+// export const config = {
+//   runtime: 'edge',
+// };
 
 // create type interface
 // interface DocumentInfo {
