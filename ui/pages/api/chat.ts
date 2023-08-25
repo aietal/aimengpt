@@ -1,6 +1,7 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
-// import axios from 'axios';
+import { loadQAMapReduceChain } from "langchain/chains";
+import { Document } from "langchain/document";
 
 
 import { ChatBody, Message } from '@/types/chat';
@@ -15,54 +16,32 @@ export const config = {
   runtime: 'edge',
 };
 
-// const instance = axios.create({
-//   baseURL: 'http://localhost:3000',
-//   headers: {'Content-Type': 'application/json'},
-//   adapter: require('axios/lib/adapters/http'),
-// })
-
-
-
-
-// async function fetchDocuments(input: string) {
-//   try {
-//     console.log('Fetching documents...');
-//     const response = await instance.post('http://localhost:3000/api/fetch-documents', { input }, { headers: { 'Content-Type': 'application/json' } });
-//     console.log('Documents fetched successfully');
-//     return response;
-//   } catch (error) {
-//     console.error('Error fetching documents:', error);
-//     throw error;
-//   }
-// }
-
-async function fetchDocuments(input: string) {
+// Function to fetch and format documents
+async function fetchAndFormatDocuments(lastMessageContent: string) {
   try {
-    console.log('Fetching documents...');
     const response = await fetch('http://localhost:3000/api/fetch-documents', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ input }),
+      body: JSON.stringify({ input: lastMessageContent }),
     });
+    
+    if (!response.ok) {
+      throw new Error(`Error fetching documents: ${response.statusText}`);
+    }
+
     const data = await response.json();
-    console.log('Documents fetched successfully');
-    console.log("data",data)
-    return data;
+    const result = data.metadatas[0].map((metadata: any, index: number) => {
+      return `Source ${index + 1}) ${metadata.title}, ${metadata.page}: ${data.documents[0][index]}\n`;
+    }).join('');
+
+    return result;
+
   } catch (error) {
-    console.error('Error fetching documents:', error);
-    throw error;
+    console.error('Error fetching and formatting documents:', error);
+    throw error; // You may want to throw a more specific error object here
   }
 }
 
-function formatData(data: any) {
-  let result = '';
-  data.metadatas[0].forEach((metadata: any, index: number) => {
-    result += `Source ${index + 1}) ${metadata.title}, ${metadata.page}: ${
-      data.documents[0][index]
-    }\n`;
-  });
-  return result;
-}
 
 const handler = async (req: Request): Promise<Response> => {
   try {
@@ -83,10 +62,8 @@ const handler = async (req: Request): Promise<Response> => {
 
     const lastMessage = messages[messages.length - 1];
 
-    const documents = await fetchDocuments(lastMessage.content);
-
-    const relevantDocuments = formatData(documents);
-
+    const relevantDocuments = await fetchAndFormatDocuments(lastMessage.content);
+    
     let temperatureToUse = temperature;
     if (temperatureToUse == null) {
       temperatureToUse = DEFAULT_TEMPERATURE;
@@ -124,6 +101,8 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log(model, promptToSend, temperatureToUse, key, messagesToSend);
 
+    
+
     const stream = await OpenAIStream(
       model,
       promptToSend,
@@ -144,13 +123,3 @@ const handler = async (req: Request): Promise<Response> => {
 };
 
 export default handler;
-
-// create type interface
-// interface DocumentInfo {
-//   id: string;
-//   text: string;
-//   metadata: {
-//     title: string;
-//     page: string;
-//   };
-// }
