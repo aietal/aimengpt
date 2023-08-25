@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // query the collection
   const results = await collection.query({
-      nResults: 1, 
+      nResults: 4, 
       queryTexts: [query]
   }) 
 
