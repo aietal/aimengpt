@@ -3,6 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { ChromaClient, TransformersEmbeddingFunction } from 'chromadb';
 import { IncomingForm } from 'formidable';
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -35,25 +37,14 @@ export default async function handler(
       // const docs = await loader.load();
 
       const originalDocs = await loader.load();
-      const docs = [];
 
-      for (const originalDoc of originalDocs) {
-        const contentLength = originalDoc.pageContent.length;
-        const sixthLength = Math.floor(contentLength / 6); // Dividing by 6 instead of 3
+      const splitter = new RecursiveCharacterTextSplitter({
+        chunkSize: 500,
+        chunkOverlap: 100,
+      });      
 
-        for (let i = 0; i < 6; i++) {
-          // Looping 6 times instead of 3
-          const start = i * sixthLength;
-          const end = i < 5 ? (i + 1) * sixthLength : contentLength; // Making sure to include the remaining part
-
-          const newDoc = {
-            pageContent: originalDoc.pageContent.substring(start, end),
-            metadata: { ...originalDoc.metadata },
-          };
-          docs.push(newDoc);
-        }
-      }
-
+      const docs = await splitter.splitDocuments(originalDocs);
+ 
       // Process the documents and perform other logic
       const { ids, metadatas, documentContents } = processDocuments(docs);
 
