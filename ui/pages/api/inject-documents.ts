@@ -39,11 +39,12 @@ export default async function handler(
 
       for (const originalDoc of originalDocs) {
         const contentLength = originalDoc.pageContent.length;
-        const thirdLength = Math.floor(contentLength / 3);
+        const sixthLength = Math.floor(contentLength / 6); // Dividing by 6 instead of 3
 
-        for (let i = 0; i < 3; i++) {
-          const start = i * thirdLength;
-          const end = i < 2 ? (i + 1) * thirdLength : contentLength; // Making sure to include the remaining part
+        for (let i = 0; i < 6; i++) {
+          // Looping 6 times instead of 3
+          const start = i * sixthLength;
+          const end = i < 5 ? (i + 1) * sixthLength : contentLength; // Making sure to include the remaining part
 
           const newDoc = {
             pageContent: originalDoc.pageContent.substring(start, end),
@@ -60,7 +61,7 @@ export default async function handler(
 
       const embedder = new TransformersEmbeddingFunction();
       const collection = await client.getOrCreateCollection({
-        name: "hypzert-dokumentation",
+        name: 'hypzert-dokumentation',
         embeddingFunction: embedder,
       });
 
@@ -70,12 +71,10 @@ export default async function handler(
         documents: documentContents,
       });
 
-      res
-        .status(200)
-        .json({
-          message: 'Documents processed successfully',
-          documentCount: ids.length,
-        });
+      res.status(200).json({
+        message: 'Documents processed successfully',
+        documentCount: ids.length,
+      });
     });
   } catch (error) {
     console.error(error);
