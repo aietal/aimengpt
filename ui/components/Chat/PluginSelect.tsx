@@ -4,6 +4,8 @@ import { useTranslation } from 'next-i18next';
 
 import { Plugin, PluginList } from '@/types/plugin';
 
+import { useChatStore } from '@/context/chat.store';
+
 interface Props {
   plugin: Plugin | null;
   onPluginChange: (plugin: Plugin) => void;
@@ -16,6 +18,9 @@ export const PluginSelect: FC<Props> = ({
   onKeyDown,
 }) => {
   const { t } = useTranslation('chat');
+
+  const setChatMode = useChatStore(s => s.setChatMode);
+  const chatMode = useChatStore(s => s.chatMode);
 
   const selectRef = useRef<HTMLSelectElement>(null);
 
@@ -54,6 +59,8 @@ export const PluginSelect: FC<Props> = ({
     }
   };
 
+  console.log(chatMode)
+
   useEffect(() => {
     if (selectRef.current) {
       selectRef.current.focus();
@@ -66,36 +73,28 @@ export const PluginSelect: FC<Props> = ({
         <select
           ref={selectRef}
           className="w-full cursor-pointer bg-transparent p-2"
-          placeholder={t('Select a plugin') || ''}
-          value={plugin?.id || ''}
-          onChange={(e) => {
-            onPluginChange(
-              PluginList.find(
-                (plugin) => plugin.id === e.target.value,
-              ) as Plugin,
-            );
-          }}
+          placeholder={t('Select a chat mode') || ''}
+          value={chatMode}
+          onChange={(e) => setChatMode(e.target.value)}
           onKeyDown={(e) => {
             handleKeyDown(e);
           }}
         >
           <option
-            key="chatgpt"
-            value="chatgpt"
+            key="chat"
+            value="chat"
             className="dark:bg-[#1d1c21] dark:text-white"
           >
-            ChatGPT
+            Regular Chat
           </option>
-
-          {PluginList.map((plugin) => (
-            <option
-              key={plugin.id}
-              value={plugin.id}
-              className="dark:bg-[#1d1c21] dark:text-white"
-            >
-              {plugin.name}
-            </option>
-          ))}
+          <option
+            key="rag"
+            value="rag"
+            className="dark:bg-[#1d1c21] dark:text-white"
+          >
+            Documentation Chat
+          </option>
+         
         </select>
       </div>
     </div>
