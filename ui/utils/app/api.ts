@@ -1,13 +1,14 @@
 import { Plugin, PluginID } from '@/types/plugin';
 
-export const getEndpoint = (plugin: Plugin | null) => {
-  if (!plugin) {
+export const getEndpoint = (chatMode: string) => {
+  if (chatMode === 'chat') {
     return 'api/chat';
   }
 
-  if (plugin.id === PluginID.GOOGLE_SEARCH) {
-    return 'api/google';
+  if (chatMode === 'rag') { 
+    return 'api/rag-chat';
   }
 
   return 'api/chat';
+
 };
