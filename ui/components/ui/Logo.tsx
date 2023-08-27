@@ -21,9 +21,9 @@ export function Logomark(props:any) {
     return (
       <div className="flex items-center">
         <svg viewBox="0 0 40 40" aria-hidden="true" {...props}>
-          <Logomark width="40" height="40" className="fill-primary" />
+          <Logomark width="40" height="40" className="fill-[#F95730]" />
         </svg>
-        <span className="text-gray-900 font-semibold text-xl"> IsaacGPT </span>
+        <span className="text-gray-900 dark:text-white font-semibold text-xl"> IsaacGPT </span>
       </div>
     );
   }
