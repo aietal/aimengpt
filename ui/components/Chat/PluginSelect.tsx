@@ -6,6 +6,8 @@ import { Plugin, PluginList } from '@/types/plugin';
 
 import { useChatStore } from '@/context/chat.store';
 
+import toast from 'react-hot-toast';
+
 interface Props {
   plugin: Plugin | null;
   onPluginChange: (plugin: Plugin) => void;
@@ -21,6 +23,20 @@ export const PluginSelect: FC<Props> = ({
 
   const setChatMode = useChatStore(s => s.setChatMode);
   const chatMode = useChatStore(s => s.chatMode);
+
+  const selectChatMode = (newChatMode: string) => {
+
+    const chatModeName = newChatMode === 'chat' ? 'Regular Chat' : 'Documentation Chat';
+
+    setChatMode(newChatMode);
+
+    toast.success(chatModeName + ' selected');
+
+
+
+
+  }
+
 
   const selectRef = useRef<HTMLSelectElement>(null);
 
@@ -75,7 +91,7 @@ export const PluginSelect: FC<Props> = ({
           className="w-full cursor-pointer bg-transparent p-2"
           placeholder={t('Select a chat mode') || ''}
           value={chatMode}
-          onChange={(e) => setChatMode(e.target.value)}
+          onChange={(e) => selectChatMode(e.target.value)}
           onKeyDown={(e) => {
             handleKeyDown(e);
           }}
