@@ -1,5 +1,9 @@
 version: '3.9'
 
+networks:
+  net:
+    driver: bridge
+
 services:
   chroma-server:
     image: server
@@ -14,6 +18,8 @@ services:
       - IS_PERSISTENT=TRUE
     ports:
       - 8000:8000
+    networks:
+      - net
 
   llama-gpt-api-13b:
     build:
@@ -25,6 +31,8 @@ services:
       USE_MLOCK: 1
     cap_add:
       - IPC_LOCK
+    networks:
+      - net
 
   llama-gpt-ui:
     build:
