@@ -21,7 +21,7 @@ services:
     networks:
       - net
 
-  llama-gpt-api-70b:
+  isaac-gpt-api-70b:
     build:
       context: ./api
       dockerfile: 70B.Dockerfile
@@ -40,7 +40,7 @@ services:
     networks:
       - net
 
-  llama-gpt-ui:
+  isaac-gpt-ui:
     build:
       context: ./ui 
       dockerfile: Dockerfile 
@@ -49,9 +49,9 @@ services:
     restart: on-failure
     environment:
       - 'OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXX'
-      - 'OPENAI_API_HOST=http://llama-gpt-api-70b:8000'
+      - 'OPENAI_API_HOST=http://isaac-gpt-api-70b:8000'
       - 'DEFAULT_MODEL=/models/llama-2-70b-chat.bin'
-      - 'WAIT_HOSTS=llama-gpt-api-70b:8000'
+      - 'WAIT_HOSTS=isaac-gpt-api-70b:8000'
       - 'WAIT_TIMEOUT=600'
     networks:
       - net
