@@ -22,14 +22,21 @@ services:
       - net
 
   isaac-gpt-api-7b:
-    image: ghcr.io/abetlen/llama-cpp-python:latest
+    # Pin the image to llama-cpp-python 0.1.78 to avoid ggml => gguf breaking changes
+    image: ghcr.io/abetlen/llama-cpp-python:latest@sha256:b6d21ff8c4d9baad65e1fa741a0f8c898d68735fff3f3cd777e3f0c6a1839dd4
     restart: on-failure
     volumes:
       - './models:/models'
       - './api:/api'
+    ports:
+      - 3001:8000
     environment:
-      MODEL: '/models/llama-2-7b-chat.bin'
-      MODEL_DOWNLOAD_URL: 'https://huggingface.co/TheBloke/Nous-Hermes-Llama-2-7B-GGML/resolve/main/nous-hermes-llama-2-7b.ggmlv3.q4_0.bin'
+      MODEL: '/models/${MODEL_NAME:-llama-2-7b-chat.bin}'
+      MODEL_DOWNLOAD_URL: '${MODEL_DOWNLOAD_URL:-https://huggingface.co/TheBloke/Nous-Hermes-Llama-2-7B-GGML/resolve/main/nous-hermes-llama-2-7b.ggmlv3.q4_0.bin}'
+      N_GQA: '${N_GQA:-1}'
+      USE_MLOCK: 1
+    cap_add:
+      - IPC_LOCK
     command: '/bin/sh /api/run.sh'
     networks:
       - net
@@ -43,10 +50,10 @@ services:
     restart: on-failure
     environment:
       - 'OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXX'
-      - 'OPENAI_API_HOST=http://isaac-gpt-api-7b:8000'
-      - 'DEFAULT_MODEL=/models/llama-2-7b-chat.bin'
-      - 'WAIT_HOSTS=isaac-gpt-api-7b:8000'
-      - 'WAIT_TIMEOUT=600'
+      - 'OPENAI_API_HOST=http://isaac-gpt-api:8000'
+      - 'DEFAULT_MODEL=/models/${MODEL_NAME:-llama-2-7b-chat.bin}'
+      - 'WAIT_HOSTS=isaac-gpt-api:8000'
+      - 'WAIT_TIMEOUT=${WAIT_TIMEOUT:-3600}'
     networks:
       - net
 
