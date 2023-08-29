@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.9'
 
 networks:
   net:
@@ -22,15 +22,18 @@ services:
       - net
 
   isaac-gpt-api-13b:
-    build:
-      context: ./api
-      dockerfile: 13B.Dockerfile
+    image: ghcr.io/abetlen/llama-cpp-python:latest
     restart: on-failure
+    volumes:
+      - './models:/models'
+      - './api:/api'
     environment:
       MODEL: '/models/llama-2-13b-chat.bin'
       USE_MLOCK: 1
+      MODEL_DOWNLOAD_URL: 'https://huggingface.co/TheBloke/Nous-Hermes-Llama2-GGML/resolve/main/nous-hermes-llama2-13b.ggmlv3.q4_0.bin'
     cap_add:
       - IPC_LOCK
+    command: '/bin/sh /api/run.sh'
     networks:
       - net
 
