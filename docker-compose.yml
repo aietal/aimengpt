@@ -22,7 +22,6 @@ services:
       - net
 
   isaac-gpt-api-7b:
-
     image: ghcr.io/abetlen/llama-cpp-python:latest
     restart: on-failure
     volumes:
