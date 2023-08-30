@@ -75,8 +75,6 @@ export const PluginSelect: FC<Props> = ({
     }
   };
 
-  console.log(chatMode)
-
   useEffect(() => {
     if (selectRef.current) {
       selectRef.current.focus();
