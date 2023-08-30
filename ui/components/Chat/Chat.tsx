@@ -358,7 +358,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         <div className="mx-auto flex h-full w-[300px] flex-col justify-center space-y-6 sm:w-[600px]">
           <div className="text-center flex items-center justify-center text-4xl font-bold text-black dark:text-white">
            {/* AimenGPT */}
-           <Logo className="h-20 max-w-min" />
+           <Logo className="h-8 max-w-min" />
           </div>
          
           <div className="text-center text-lg text-black dark:text-white">
