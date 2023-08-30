@@ -19,6 +19,7 @@ export const config = {
 // Function to fetch and format documents
 async function fetchAndFormatDocuments(lastMessageContent: string) {
   try {
+    console.log("fetching documents")
     const response = await fetch('http://localhost:3000/api/fetch-documents', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -101,7 +102,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     encoding.free();
 
-    console.log(model, promptToSend, temperatureToUse, key, messagesToSend);
+    console.log("rag Bruda",model, promptToSend, temperatureToUse, key, messagesToSend);
 
     
 
