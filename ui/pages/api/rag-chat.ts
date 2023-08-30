@@ -47,6 +47,7 @@ async function fetchAndFormatDocuments(lastMessageContent: string) {
 
 
 const handler = async (req: Request): Promise<Response> => {
+  console.log("RAG Baby")
   try {
     const { model, messages, key, prompt, temperature } =
       (await req.json()) as ChatBody;
