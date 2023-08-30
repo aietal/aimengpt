@@ -1,7 +1,5 @@
 import { DEFAULT_SYSTEM_PROMPT, DEFAULT_TEMPERATURE } from '@/utils/app/const';
 import { OpenAIError, OpenAIStream } from '@/utils/server';
-import { loadQAMapReduceChain } from "langchain/chains";
-import { Document } from "langchain/document";
 import { codeBlock, oneLine } from 'common-tags'
 
 import { ChatBody, Message } from '@/types/chat';
@@ -99,54 +97,12 @@ const handler = async (req: Request): Promise<Response> => {
     let tokenCount = prompt_tokens.length;
     let messagesToSend: Message[] = [];
 
-    // Constructing the last message with the relevant documents
-    // const lastMessageContent = `Respond to the following message: ${lastMessage.content} using the following context: ${relevantDocuments}`;
-    // const lastMessageTokens = encoding.encode(lastMessageContent);
-    // tokenCount += lastMessageTokens.length;
-
-    // Adding existing messages
-    // for (let i = messages.length - 1; i >= 0; i--) {
-    //   const message = messages[i];
-    //   const tokens = encoding.encode(message.content);
-
-    //   if (tokenCount + tokens.length + 1000 > model.tokenLimit) {
-    //     continue; // Skip this message if adding it would exceed the token limit
-    //   }
-    //   tokenCount += tokens.length;
-    //   messagesToSend = [message, ...messagesToSend];
-    // }
-
-    // Add the constructed last message
-  
 
     encoding.free();
 
     console.log(model, promptToSend, temperatureToUse, key, messagesToSend);
 
-    // const messageToSend = codeBlock`
-    //   ${oneLine`
-    //     You are a very enthusiastic AI assistant who loves
-    //     to help people! Given the following sections from relevant
-    //     documentation, answer the question using only that information,
-    //     outputted in markdown format. You must in the same language as the question. If you are unsure and the answer
-    //     is not explicitly written in the documentation, say
-    //     "Sorry, I don't know how to help with that."
-    //   `}
-
-    //   Context sections:
-    //   ${relevantDocuments}
-
-    //   Question: """
-    //   ${lastMessage.content}
-    //   """
-
-    //   Answer as markdown (including related code snippets if available):
-    // `
-
-    // messagesToSend = [
-    //   { role: 'user', content: messageToSend },
-    // ];
-
+  
   messagesToSend = [
       {
         role: "user",
