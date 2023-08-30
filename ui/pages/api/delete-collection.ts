@@ -8,14 +8,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
 
-  // await client.deleteCollection({name: "hypzert-dokumentation"})
- const embedder = new TransformersEmbeddingFunction();
+    await client.deleteCollection({name: "default-collection"})
 
- const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
-
-const alio = await collection.count()
-    
-    console.log(alio)
 
     res.status(200).json("Deleted collection.");
   } catch (error) {

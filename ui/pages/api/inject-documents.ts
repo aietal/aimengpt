@@ -50,7 +50,7 @@ export default async function handler(
 
       const embedder = new TransformersEmbeddingFunction();
       const collection = await client.getOrCreateCollection({
-        name: 'hypzert-dokumentation',
+        name: 'default-collection',
         embeddingFunction: embedder,
       });
 
