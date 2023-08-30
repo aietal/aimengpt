@@ -1,13 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { ChromaClient} from "chromadb";
+import { ChromaClient, TransformersEmbeddingFunction } from "chromadb";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = new ChromaClient({
-      path: "http://chroma-server:8000",
+      path: "http://localhost:8000",
     });
 
-    await client.deleteCollection({name: "hypzert-dokumentation"})
+
+  // await client.deleteCollection({name: "hypzert-dokumentation"})
+ const embedder = new TransformersEmbeddingFunction();
+
+ const collection = await client.getOrCreateCollection({ name: "hypzert-dokumentation", embeddingFunction: embedder });
+
+const alio = await collection.count()
+    
+    console.log(alio)
 
     res.status(200).json("Deleted collection.");
   } catch (error) {
