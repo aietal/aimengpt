@@ -1,6 +1,7 @@
-import { Plugin, PluginID } from '@/types/plugin';
+// import { Plugin, PluginID } from '@/types/plugin';
 
 export const getEndpoint = (chatMode: string) => {
+ 
   if (chatMode === 'chat') {
     return 'api/chat';
   }
