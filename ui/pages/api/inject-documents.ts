@@ -34,9 +34,11 @@ export default async function handler(
       });
 
       const loader = new PDFLoader(files.pdf[0].filepath);
-      // const docs = await loader.load();
 
       const originalDocs = await loader.load();
+
+      console.log(JSON.stringify(originalDocs));
+
 
       const splitter = new RecursiveCharacterTextSplitter({
         chunkSize: 500,
@@ -80,14 +82,17 @@ function processDocuments(docs: any) {
 
   for (const document of docs) {
     // Generate an ID for each document, or use some existing unique identifier
-    const id = uuidv4(); // You would define this function to create a unique ID for each document
+    const id = uuidv4();
     ids.push(id);
 
-    // You may need to customize the metadata extraction based on your needs
+    const fallbackTitle = path.basename(document.metadata.source);
+    const titleFromMetadata = document.metadata.pdf.info.Title;
+
+    const title = titleFromMetadata && titleFromMetadata.length > 0 ? titleFromMetadata : fallbackTitle;
+
+  
     const metadata = {
-      title:
-        document.metadata.pdf.info.Title ||
-        path.basename(document.metadata.source),
+      title: title,
       page: document.metadata.loc.pageNumber, // Define this function to extract chapter info
       source: document.metadata.source, // Define this function to extract verse info
     };
