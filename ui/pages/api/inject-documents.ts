@@ -30,7 +30,7 @@ export default async function handler(
       }
 
       const client = new ChromaClient({
-        path: process.env.CHROMA_PATH || 'http://localhost:8000',
+        path: process.env.CHROMA_PATH || 'http://chroma-server:8000',
       });
 
       const loader = new PDFLoader(files.pdf[0].filepath);
@@ -47,8 +47,6 @@ export default async function handler(
  
       // Process the documents and perform other logic
       const { ids, metadatas, documentContents } = processDocuments(docs);
-
-      console.log(docs);
 
       const embedder = new TransformersEmbeddingFunction();
       const collection = await client.getOrCreateCollection({
