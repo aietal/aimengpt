@@ -34,6 +34,8 @@ async function fetchAndFormatDocuments(lastMessageContent: string) {
       return `Source ${index + 1}) ${metadata.title}, ${metadata.page}: ${data.documents[0][index]}\n`;
     }).join('');
 
+    console.log(result);
+
     return result;
 
   } catch (error) {
