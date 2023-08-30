@@ -31,8 +31,8 @@ git clone https://github.com/chroma-core/chroma.git
 Then, clone the AimenGPT repo and `cd` into it:
 
 ```
-git clone https://github.com/aietal/isaac-gpt.git
-cd isaac-gpt
+git clone https://github.com/aietal/aimengpt.git
+cd aimengpt
 ```
 
 You can now run AimenGPT with any of the following models depending upon your hardware:

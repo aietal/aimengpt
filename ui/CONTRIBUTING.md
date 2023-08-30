@@ -22,8 +22,8 @@ We welcome the following types of contributions:
 To get started, fork the project on GitHub and clone it locally on your machine. Then, create a new branch to work on your changes.
 
 ```
-git clone https://github.com/aietal/isaac-gpt.git
-cd isaac-gpt
+git clone https://github.com/aietal/aimengpt.git
+cd aimengpt
 git checkout -b my-branch-name
 
 ```
