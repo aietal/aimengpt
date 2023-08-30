@@ -103,8 +103,8 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           prompt: updatedConversation.prompt,
           temperature: updatedConversation.temperature,
         };
-        const endpoint = getEndpoint(chatMode);
-        console.log("qasdjlasdn", endpoint)
+        const endpoint = chatMode === 'chat' ? 'api/chat' : 'api/rag-chat';
+
         let body;
         if (!plugin) {
           body = JSON.stringify(chatBody);
