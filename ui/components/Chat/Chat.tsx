@@ -66,6 +66,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
   const [showScrollDownButton, setShowScrollDownButton] =
     useState<boolean>(false);
   const chatMode = useChatStore(s => s.chatMode);
+  console.log("alio", chatMode)
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -103,7 +104,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           prompt: updatedConversation.prompt,
           temperature: updatedConversation.temperature,
         };
-        const endpoint = chatMode === 'chat' ? 'api/chat' : 'api/rag-chat';
+        const endpoint = getEndpoint(chatMode);
 
         let body;
         if (!plugin) {
@@ -256,6 +257,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       pluginKeys,
       selectedConversation,
       stopConversationRef,
+      chatMode
     ],
   );
 
