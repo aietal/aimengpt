@@ -16,6 +16,7 @@
     "@tabler/icons-react": "^2.9.0",
     "@xenova/transformers": "^2.5.2",
     "chromadb": "^1.5.6",
+    "common-tags": "^1.8.2",
     "eventsource-parser": "^0.1.0",
     "formidable": "^3.5.0",
     "i18next": "^22.4.13",
