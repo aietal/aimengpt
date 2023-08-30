@@ -1,12 +1,11 @@
 import { FC, useEffect, useRef } from 'react';
+import toast from 'react-hot-toast';
 
 import { useTranslation } from 'next-i18next';
 
 import { Plugin, PluginList } from '@/types/plugin';
 
 import { useChatStore } from '@/context/chat.store';
-
-import toast from 'react-hot-toast';
 
 interface Props {
   plugin: Plugin | null;
@@ -21,22 +20,17 @@ export const PluginSelect: FC<Props> = ({
 }) => {
   const { t } = useTranslation('chat');
 
-  const setChatMode = useChatStore(s => s.setChatMode);
-  const chatMode = useChatStore(s => s.chatMode);
+  const setChatMode = useChatStore((s) => s.setChatMode);
+  const chatMode = useChatStore((s) => s.chatMode);
 
   const selectChatMode = (newChatMode: string) => {
-
-    const chatModeName = newChatMode === 'chat' ? 'Regular Chat' : 'Documentation Chat';
+    const chatModeName =
+      newChatMode === 'chat' ? 'Regular chat' : 'Uploaded documents chat';
 
     setChatMode(newChatMode);
 
     toast.success(chatModeName + ' selected');
-
-
-
-
-  }
-
+  };
 
   const selectRef = useRef<HTMLSelectElement>(null);
 
@@ -108,7 +102,6 @@ export const PluginSelect: FC<Props> = ({
           >
             Documentation Chat
           </option>
-         
         </select>
       </div>
     </div>
