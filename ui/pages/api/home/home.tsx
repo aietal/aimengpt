@@ -360,7 +360,7 @@ const Home = ({
       }}
     >
       <Head>
-        <title>IsaacGPT</title>
+        <title>AimenGPT</title>
         <meta name="description" content="Chat with a local LLM on your server without leaking your data to OpenAI" />
         <meta
           name="viewport"

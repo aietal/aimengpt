@@ -18,9 +18,9 @@ https://github.com/getumbrel/llama-gpt/assets/10330103/5d1a76b8-ed03-4a51-90bd-1
 
 ## How to install
 
-### Install IsaacGPT on your server or local machine
+### Install AimenGPT on your server or local machine
 
-You can run IsaacGPT on any x86 or arm64 system. Make sure you have Docker installed.
+You can run AimenGPT on any x86 or arm64 system. Make sure you have Docker installed.
 
 First, clone the Chroma repo:
 
@@ -28,14 +28,14 @@ First, clone the Chroma repo:
 git clone https://github.com/chroma-core/chroma.git
 ```
 
-Then, clone the IsaacGPT repo and `cd` into it:
+Then, clone the AimenGPT repo and `cd` into it:
 
 ```
 git clone https://github.com/aietal/isaac-gpt.git
 cd isaac-gpt
 ```
 
-You can now run IsaacGPT with any of the following models depending upon your hardware:
+You can now run AimenGPT with any of the following models depending upon your hardware:
 
 | Model size | Model used                          | Minimum RAM required | How to start LlamaGPT                            |
 | ---------- | ----------------------------------- | -------------------- | ------------------------------------------------ |

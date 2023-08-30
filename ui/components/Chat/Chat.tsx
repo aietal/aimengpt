@@ -104,6 +104,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           temperature: updatedConversation.temperature,
         };
         const endpoint = getEndpoint(chatMode);
+        console.log("qasdjlasdn", endpoint)
         let body;
         if (!plugin) {
           body = JSON.stringify(chatBody);
@@ -356,16 +357,16 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       {!(apiKey || serverSideApiKeyIsSet) ? (
         <div className="mx-auto flex h-full w-[300px] flex-col justify-center space-y-6 sm:w-[600px]">
           <div className="text-center flex items-center justify-center text-4xl font-bold text-black dark:text-white">
-           {/* IsaacGPT */}
+           {/* AimenGPT */}
            <Logo className="h-20 max-w-min" />
           </div>
          
           <div className="text-center text-lg text-black dark:text-white">
-            <div className="mb-4">IsaacGPT is a 100% private alternative to ChatGPT + RAG.</div>
+            <div className="mb-4">AimenGPT is a 100% private and offline alternative to ChatGPT + RAG.</div>
           </div>
           <div className="text-center text-gray-500 dark:text-gray-400">
             <div className="mb-2">
-              IsaacGPT is powered by Llama-2, Chroma and langchain.
+              AimenGPT is powered by Llama-2, Chroma and Langchain.
             </div>
           </div>
         </div>
@@ -387,7 +388,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                         <Spinner size="16px" className="mx-auto" />
                       </div>
                     ) : (
-                      'IsaacGPT'
+                      'AimenGPT'
                     )}
                   </div>
 
