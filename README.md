@@ -108,7 +108,7 @@ You can access AimenGPT at http://localhost:3000.
 > To run 13B or 70B chat models, replace `7b` with `13b` or `70b` respectively.
 > To run 7B, 13B or 34B Code Llama models, replace `7b` with `code-7b`, `code-13b` or `code-34b` respectively.
 
-To stop LlamaGPT, do `Ctrl + C` in Terminal.
+To stop AimenGPT, do `Ctrl + C` in Terminal.
 
 ## OpenAI compatible API
 
