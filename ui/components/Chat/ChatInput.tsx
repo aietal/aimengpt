@@ -6,6 +6,7 @@ import {
   IconRepeat,
   IconSend,
 } from '@tabler/icons-react';
+import { FileStack, MessageSquare } from 'lucide-react';
 import {
   KeyboardEvent,
   MutableRefObject,
@@ -15,8 +16,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import {MessageSquare, FileStack} from 'lucide-react'
-import { useChatStore } from '@/context/chat.store';
 
 import { useTranslation } from 'next-i18next';
 
@@ -26,9 +25,17 @@ import { Prompt } from '@/types/prompt';
 
 import HomeContext from '@/pages/api/home/home.context';
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+
 import { PluginSelect } from './PluginSelect';
 import { PromptList } from './PromptList';
 import { VariableModal } from './VariableModal';
+
+import { useChatStore } from '@/context/chat.store';
 
 interface Props {
   onSend: (message: Message, plugin: Plugin | null) => void;
@@ -284,13 +291,24 @@ export const ChatInput = ({
           )}
 
         <div className="relative mx-2 flex w-full flex-grow flex-col rounded-md border border-black/10 bg-white shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:bg-[#27242e] dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] sm:mx-4">
-          <button
-            className="absolute left-2 top-2 rounded-sm p-1 text-neutral-800 opacity-60 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-opacity-50 dark:text-neutral-100 dark:hover:text-neutral-200"
-            onClick={() => setShowPluginSelect(!showPluginSelect)}
-            onKeyDown={(e) => {}}
-          >
-            {chatMode === 'chat' ? <MessageSquare size={20} /> : <FileStack size={20} />}
-          </button>
+          <Tooltip>
+            <TooltipTrigger>
+              <button
+                className="absolute left-2 top-2 rounded-sm p-1 text-neutral-800 opacity-60 hover:bg-neutral-200 hover:text-neutral-900 dark:bg-opacity-50 dark:text-neutral-100 dark:hover:text-neutral-200"
+                onClick={() => setShowPluginSelect(!showPluginSelect)}
+                onKeyDown={(e) => {}}
+              >
+                {chatMode === 'chat' ? (
+                  <MessageSquare size={20} />
+                ) : (
+                  <FileStack size={20} />
+                )}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Select chat mode</p>
+            </TooltipContent>
+          </Tooltip>
 
           {showPluginSelect && (
             <div className="absolute left-0 bottom-14 rounded bg-white dark:bg-transparent">
