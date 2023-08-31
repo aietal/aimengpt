@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/aietal/aimengpt">
-    <img width="150" height="150" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWVnZyI+PHBhdGggZD0iTTEyIDIyYzYuMjMtLjA1IDcuODctNS41NyA3LjUtMTAtLjM2LTQuMzQtMy45NS05Ljk2LTcuNS0xMC0zLjU1LjA0LTcuMTQgNS42Ni03LjUgMTAtLjM3IDQuNDMgMS4yNyA5Ljk1IDcuNSAxMHoiLz48L3N2Zz4=" alt="AimenGPT" width="200" />
+    <img width="150" height="150" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWVnZyI+PHBhdGggZD0iTTEyIDIyYzYuMjMtLjA1IDcuODctNS41NyA3LjUtMTAtLjM2LTQuMzQtMy45NS05Ljk2LTcuNS0xMC0zLjU1LjA0LTcuMTQgNS42Ni03LjUgMTAtLjM3IDQuNDMgMS4yNyA5Ljk1IDcuNSAxMHoiLz48L3N2Zz4=" alt="AimenGPT" />
   </a>
 </p>
 <p align="center">
