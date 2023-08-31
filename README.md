@@ -56,12 +56,6 @@ Run AimenGPT with the following command:
 ./run.sh --model 7b
 ```
 
-Or if you have an Nvidia GPU, you can run LlamaGPT with CUDA support using the `--with-cuda` flag, like:
-
-```
-./run.sh --model 7b --with-cuda
-```
-
 You can access AimenGPT at `http://localhost:3000`.
 
 > To run 13B or 70B chat models, replace `7b` with `13b` or `70b` respectively.
