@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/aietal/aimengpt">
-    <img width="150" height="150" src="./ui/public/aimengpt-logo.png" alt="AimenGPT" />
+    <img width="150" height="150" src="./ui/public/logo.svg" alt="AimenGPT" />
   </a>
 </p>
 <p align="center">
