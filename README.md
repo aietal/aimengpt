@@ -15,7 +15,7 @@
 
 ## Demo
 <div align="center">
-<img width="415" height="263" src="./ui/public/ui-screenshot.png" alt="UI" />
+<img src="./ui/public/ui-screenshot.png" alt="UI" />
 </div>
 
 ## Supported models
