@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/aietal/aimengpt">
-         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-egg"><path d="M12 22c6.23-.05 7.87-5.57 7.5-10-.36-4.34-3.95-9.96-7.5-10-3.55.04-7.14 5.66-7.5 10-.37 4.43 1.27 9.95 7.5 10z"/></svg>
+    <img width="150" height="150" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWVnZyI+PHBhdGggZD0iTTEyIDIyYzYuMjMtLjA1IDcuODctNS41NyA3LjUtMTAtLjM2LTQuMzQtMy45NS05Ljk2LTcuNS0xMC0zLjU1LjA0LTcuMTQgNS42Ni03LjUgMTAtLjM3IDQuNDMgMS4yNyA5Ljk1IDcuNSAxMHoiLz48L3N2Zz4=" alt="AimenGPT" width="200" />
   </a>
 </p>
 <p align="center">
@@ -82,6 +82,7 @@ To stop AimenGPT, do `Ctrl + C` in Terminal.
 > You can then access AimentGPT at http://localhost:3000.
 
 ---
+
 
 ### Install AimenGPT on M1/M2 Mac
 
@@ -177,6 +178,7 @@ We're looking to add more features to AimenGPT. The highest priorities are:
 - Updating the front-end to show model download progress, and to allow users to switch between models.
 - Making it easy to run custom models.
 
+
 If you're a developer who'd like to help with any of these, please open an issue to discuss the best way to tackle the challenge. If you're looking to help but not sure where to begin, feel free to message us on [Twitter/X](https://x.com/aimengpt)
 
 ## Acknowledgements
@@ -191,7 +193,7 @@ A massive thank you to the following developers and teams for making AimenGPT po
 - [Phind](https://www.phind.com/) for [fine-tuning the Code Llama 34B model](https://www.phind.com/blog/code-llama-beats-gpt4).
 - [Tom Jobbins](https://huggingface.co/TheBloke) for [quantizing the Llama 2 models](https://huggingface.co/TheBloke/Nous-Hermes-Llama-2-7B-GGML).
 - [Meta](https://ai.meta.com/llama) for releasing Llama 2 and Code Llama under a permissive license.
-
 ---
 
 [![License](https://img.shields.io/github/license/aietal/aimengpt?color=%235351FB)](https://github.com/aietal/aimengpt/blob/master/LICENSE.md)
+
