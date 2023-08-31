@@ -6,15 +6,16 @@
 <p align="center">
   <h1 align="center">AimenGPT</h1>
   <p align="center">
-    A self-hosted, offline, ChatGPT-like chatbot that allows document uploads, powered by Llama 2, chromadb and Langchain. 100% private, with no data leaving your device.
+    A self-hosted, offline, ChatGPT-like chatbot that allows document uploads, powered by Llama 2, chromadb and Langchain. 100% private, with no data leaving your device. 
     <br />
+   <strong>New: Support for Code Llama models</strong>
    
   </p>
 </p>
 
 ## Demo
 
-https://github.com/getumbrel/llama-gpt/assets/10330103/5d1a76b8-ed03-4a51-90bd-12ebfaf1e6cd
+<img width="415" height="263" src="./ui/public/ui-screenshot.png" alt="UI" />
 
 ## Supported models
 
@@ -173,6 +174,7 @@ Feel free to add your own benchmarks to this table by opening a pull request.
 
 We're looking to add more features to AimenGPT. The highest priorities are:
 
+- Enable support for Nvidia GPUs
 - Enable upload of different file types
 - Enable the creation of several document collection and allowing to select between them
 - Updating the front-end to show model download progress, and to allow users to switch between models.
