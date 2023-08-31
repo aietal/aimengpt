@@ -5,6 +5,14 @@ import { useTranslation } from 'next-i18next';
 
 import { Plugin, PluginList } from '@/types/plugin';
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
 import { useChatStore } from '@/context/chat.store';
 
 interface Props {
@@ -77,33 +85,48 @@ export const PluginSelect: FC<Props> = ({
 
   return (
     <div className="flex flex-col">
-      <div className="mb-1 w-full rounded border border-neutral-600 bg-transparent pr-2 text-neutral-900 dark:border-neutral-700 dark:text-white">
-        <select
-          ref={selectRef}
-          className="w-full cursor-pointer bg-transparent p-2"
-          placeholder={t('Select a chat mode') || ''}
+      <div className="mb-1 w-full bg-transparent pr-2 text-neutral-900 dark:text-white">
+        <Select
           value={chatMode}
-          onChange={(e) => selectChatMode(e.target.value)}
-          onKeyDown={(e) => {
-            handleKeyDown(e);
-          }}
+          onValueChange={(value) => selectChatMode(value)}
         >
-          <option
-            key="chat"
-            value="chat"
-            className="dark:bg-[#1d1c21] dark:text-white"
-          >
-            Regular Chat
-          </option>
-          <option
-            key="rag"
-            value="rag"
-            className="dark:bg-[#1d1c21] dark:text-white"
-          >
-            Documentation Chat
-          </option>
-        </select>
+          <SelectTrigger className="max-w-max">
+            <SelectValue placeholder="Theme" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="chat">Regular Chat</SelectItem>
+            <SelectItem value="rag">Uploaded Documents</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );
 };
+
+{
+  /* <select
+ref={selectRef}
+className="w-full cursor-pointer bg-transparent p-2"
+placeholder={t('Select a chat mode') || ''}
+value={chatMode}
+onChange={(e) => selectChatMode(e.target.value)}
+onKeyDown={(e) => {
+  handleKeyDown(e);
+}}
+>
+<option
+  key="chat"
+  value="chat"
+  className="dark:bg-[#1d1c21] dark:text-white"
+>
+  Regular Chat
+</option>
+<option
+  key="rag"
+  value="rag"
+  className="dark:bg-[#1d1c21] dark:text-white"
+>
+  Documentation Chat
+</option>
+</select> */
+}
