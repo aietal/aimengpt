@@ -15,6 +15,8 @@ import {
   useRef,
   useState,
 } from 'react';
+import {MessageSquare, FileStack} from 'lucide-react'
+import { useChatStore } from '@/context/chat.store';
 
 import { useTranslation } from 'next-i18next';
 
@@ -52,6 +54,8 @@ export const ChatInput = ({
 
     dispatch: homeDispatch,
   } = useContext(HomeContext);
+
+  const chatMode = useChatStore((s) => s.chatMode);
 
   const [content, setContent] = useState<string>();
   const [isTyping, setIsTyping] = useState<boolean>(false);
@@ -285,7 +289,7 @@ export const ChatInput = ({
             onClick={() => setShowPluginSelect(!showPluginSelect)}
             onKeyDown={(e) => {}}
           >
-            {plugin ? <IconBrandGoogle size={20} /> : <IconBolt size={20} />}
+            {chatMode === 'chat' ? <MessageSquare size={20} /> : <FileStack size={20} />}
           </button>
 
           {showPluginSelect && (
